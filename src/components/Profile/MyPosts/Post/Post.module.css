@@ -1,0 +1,13 @@
+.avatar {
+    border-radius: 50%;
+    width: 50px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.post {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+}

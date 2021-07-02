@@ -1,0 +1,39 @@
+
+.posts {
+
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
+    border: none;
+    width: 100%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+    height: 75px;
+    margin-bottom: 10px;
+    max-width: 100%;
+}
+
+.button {
+    margin-right: 0;
+    margin-left: auto;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #5edfff;
+    display: inline-block;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+.button:hover {
+    background-color: #615dfa;
+}
+

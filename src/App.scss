@@ -1,0 +1,36 @@
+
+
+:root {
+  --main-bg-color: #615dfa;
+}
+
+
+.content {
+  max-width: 1170px;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+  margin: 0 auto 10px;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0 0 10px 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+@import-normalize;
