@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
-import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
 
@@ -20,7 +20,7 @@ const App = (props) => {
                     </Route>
 
                     <Route path='/profile' render={() => <Profile />}/>
-                    <Route path='/users' render={() => <Users />}/>
+                    <Route path='/users' render={() => <UsersContainer />}/>
                 </article>
             </main>
             <Footer/>

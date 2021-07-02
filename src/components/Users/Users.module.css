@@ -1,0 +1,16 @@
+.user {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 1;
+    padding-left: 20px;
+    flex-grow: 1;
+}
+
+.location {
+    text-align: right;
+}
