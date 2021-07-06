@@ -7,13 +7,13 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 ReactDOM.render(
-    <React.StrictMode>
+    /*<React.StrictMode>*/
         <BrowserRouter>
             <Provider store={store}>
                 <App/>
             </Provider>
-        </BrowserRouter>
-    </React.StrictMode>,
+        </BrowserRouter>,
+    /*</React.StrictMode>,*/
     document.getElementById('root')
 );
 

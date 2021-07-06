@@ -1,70 +1,45 @@
 import s from './Users.module.css'
 import React from "react";
+import axios from "axios";
+import userPhoto from '../../assets/images/man.png';
 
 const Users = (props) => {
+    const getUsers = () => {
+        if (props.users.length === 0) {
 
-    if (props.users.length === 0) {
-        props.setUsers(
-            [
-                {
-                    id: 1,
-                    fullName: 'Pavel M.',
-                    isFollowed: true,
-                    status: 'Hi there',
-                    location: {city: 'Vinnytsia', country: 'Ukraine'},
-                    photoUrl: 'https://source.unsplash.com/collection/772333/75x75'
-                },
-                {
-                    id: 2,
-                    fullName: 'Nikita B.',
-                    isFollowed: false,
-                    status: 'Working Mode',
-                    location: {city: 'Kiev', country: 'Ukraine'},
-                    photoUrl: 'https://source.unsplash.com/collection/772333/75x75'
-                },
-                {
-                    id: 3,
-                    fullName: 'Dimych M.',
-                    isFollowed: false,
-                    status: 'Go Ukraine!',
-                    location: {city: 'Lviv', country: 'Ukraine'},
-                    photoUrl: 'https://source.unsplash.com/collection/772333/75x75'
-                },
-                {
-                    id: 4,
-                    fullName: 'Sergey K.',
-                    isFollowed: true,
-                    status: 'Hi there',
-                    location: {city: 'Vinnytsia', country: 'Poland'},
-                    photoUrl: 'https://source.unsplash.com/collection/772333/75x75'
-                },]
-        );
+            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=40').then(responce => {
+
+                props.setUsers(responce.data.items);
+            });
+
+        }
     }
 
 
     return <div>
         <h1>Users</h1>
+        <button onClick={getUsers}>Get Users</button>
 
         {
             props.users.map(u =>
 
                 <div key={u.id} className={s.user}>
                     <div>
-                        <img src={u.photoUrl} alt=""/> <br/>
+                        <img className={s.ava} src={u.photos.small ? u.photos.small : userPhoto} alt=""/> <br/>
                         {
-                            u.isFollowed
-                                ? <button onClick={() => { props.follow(u.id) }}>Follow</button>
-                                : <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
+                            <button onClick={() => {
+                                props.toggleFollowUserAC(u.id)
+                            }}>{u.follow ? 'Unfollow' : 'Follow'}</button>
                         }
                     </div>
                     <div className={s.info}>
                         <div>
-                            <span>{u.fullName}</span>
+                            <span>{u.name}</span>
                             <p>{u.status}</p>
                         </div>
                         <div className={s.location}>
-                            <p>{u.location.country}</p>
-                            <p>{u.location.city}</p>
+                            <p>u.location.country</p>
+                            <p>u.location.city</p>
                         </div>
                     </div>
                 </div>)
