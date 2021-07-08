@@ -18,3 +18,7 @@
 .ava {
     width: 75px;
 }
+
+.selectedPage {
+    font-weight: bold;
+}
