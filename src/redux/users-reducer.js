@@ -4,7 +4,6 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const FETCHING_USERS = 'FETCHING_USERS';
 
-
 let initialState = {
     users: [],
     pageSize: 5,

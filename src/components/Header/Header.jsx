@@ -4,7 +4,7 @@ const Header = () => {
     return (
             <header className={s.header}>
                 <div className={s.container}>
-                    <img className={s.logo} src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt=""/>
+                    <img className={s.logo} src="https://img.icons8.com/ios-filled/100/ffffff/marriott-hotels.png" alt=""/>
                 </div>
             </header>
         )

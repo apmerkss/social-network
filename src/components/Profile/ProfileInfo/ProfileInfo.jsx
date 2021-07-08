@@ -1,16 +1,24 @@
 import s from './ProfileInfo.module.css'
+import Preloader from "../../common/preloader/Preloader";
+import userPhoto from "../../../assets/images/man.png";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+
+    if (!props.profileInfo) {
+        return  <Preloader/>
+    }
     return (
             <div>
                 <img className={s.banner} src="https://source.unsplash.com/DLwUVlzrP0Q/1600x250" alt=""/>
                 <div className={s.wrapper}>
-                    <img className={s.avatar} src="https://source.unsplash.com/IMYvZjlX3jE/150x150" alt=""/>
+                    <img className={s.avatar} src={props.profileInfo.photos.small ? props.profileInfo.photos.small : userPhoto } alt="avatar" width='75' height="75"/>
                     <div className={s.info}>
-                        <h1>Pavel Mulyar</h1>
+                        <h1>{props.profileInfo.fullName}</h1>
+                        {props.profileInfo.aboutMe && props.profileInfo.aboutMe }
                         DOB: 16.09.1992 <br/>
                         City: Vinnytsia <br/>
                         Position: Frontend-Developer <br/>
+
                     </div>
                 </div>
             </div>

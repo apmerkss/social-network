@@ -11,7 +11,7 @@ const Users = (props) => {
     for (let i = 1; i <= 5; i++) {
         pages.push(i);
     }
-debugger
+
     return <div>
         <h1>Users</h1>
         <div>
@@ -30,7 +30,7 @@ debugger
 
                 <div key={u.id} className={s.user}>
                     <div>
-                        <NavLink to='profile'>
+                        <NavLink to={`profile/${u.id}`}>
                             <img className={s.ava} src={u.photos.small ? u.photos.small : userPhoto} alt=""/>
                         </NavLink>
                         <br/>
