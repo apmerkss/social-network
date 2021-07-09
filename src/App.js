@@ -1,5 +1,5 @@
 import './App.scss';
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Footer from "./components/Footer/Footer";
 import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -11,7 +11,7 @@ const App = (props) => {
 
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <main className='content'>
                 <NavbarContainer />
                 <article>

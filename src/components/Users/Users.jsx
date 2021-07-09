@@ -3,7 +3,6 @@ import userPhoto from '../../assets/images/man.png';
 import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
-
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
 
@@ -18,8 +17,8 @@ const Users = (props) => {
             {
                 pages.map(p => {
                     return <button onClick={() => {
-                                    props.onPageChanged(p);
-                    }}
+                                                props.onPageChanged(p);
+                                        }}
                                     className={props.currentPage === p && s.selectedPage}>{p}
                            </button>
                 })
@@ -35,9 +34,7 @@ const Users = (props) => {
                         </NavLink>
                         <br/>
                         {
-                            <button onClick={() => {
-                                props.toggleFollowUser(u.id);
-                            }}>{u.follow ? 'Unfollow' : 'Follow'}</button>
+                            u.followed ? <button onClick={() => { props.unFollowUser(u.id)  }}>Unfollow</button> : <button onClick={() => { props.followUser(u.id) }}> Follow</button>
                         }
                     </div>
                     <div className={s.info}>

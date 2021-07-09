@@ -22,7 +22,6 @@ class UsersContainer extends React.Component {
     }
 
     onPageChanged = (pageNumber) => {
-
         this.props.toggleIsFetching(true);
         this.props.setUsers([]);
         this.props.setCurrentPage(pageNumber);
@@ -33,12 +32,42 @@ class UsersContainer extends React.Component {
         });
     }
 
+    followUser = (userId) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null,{
+            withCredentials: true,
+            headers: {
+               'API-KEY': '6f7f3ecd-ed5e-4ed6-a0ce-111fd29fbd86'
+                //'API-KEY': '904c7076-c6df-469e-bfc4-20723289ebf0'
+            }
+        }).then(responce => {
+            if (responce.data.resultCode === 0) {
+                this.props.toggleFollowUser(userId);
+            }
+        });
+    }
+
+    unFollowUser = (userId) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+            withCredentials: true,
+            headers: {
+                 'API-KEY': '6f7f3ecd-ed5e-4ed6-a0ce-111fd29fbd86'
+                // 'API-KEY': '904c7076-c6df-469e-bfc4-20723289ebf0'
+            }
+        }).then(responce => {
+            if (responce.data.resultCode === 0) {
+                this.props.toggleFollowUser(userId);
+            }
+        });
+    }
+
     render() {
         return <>
                     {this.props.isFetching ? <Preloader/> : null }
                     <Users
                         totalUsersCount={this.props.totalUsersCount}
                         onPageChanged={this.onPageChanged}
+                        unFollowUser={this.unFollowUser}
+                        followUser={this.followUser}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
                         users={this.props.users}

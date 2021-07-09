@@ -10,7 +10,8 @@ let initialState = {
     ],
     profileInfo: null,
     newPostText: '',
-    id: null
+    id: null,
+    currentUserId: null
 }
 
 const profileReducer = (state = initialState, action) => {
