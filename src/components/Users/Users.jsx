@@ -17,10 +17,10 @@ const Users = (props) => {
             {
                 pages.map(p => {
                     return <button onClick={() => {
-                                                props.onPageChanged(p);
-                                        }}
-                                    className={props.currentPage === p && s.selectedPage}>{p}
-                           </button>
+                        props.onPageChanged(p);
+                    }}
+                                   className={props.currentPage === p && s.selectedPage}>{p}
+                    </button>
                 })
             }
         </div>
@@ -29,12 +29,16 @@ const Users = (props) => {
 
                 <div key={u.id} className={s.user}>
                     <div>
-                        <NavLink to={`profile/${u.id}`}>
-                            <img className={s.ava} src={u.photos.small ? u.photos.small : userPhoto} alt=""/>
-                        </NavLink>
+
                         <br/>
                         {
-                            u.followed ? <button onClick={() => { props.unFollowUser(u.id)  }}>Unfollow</button> : <button onClick={() => { props.followUser(u.id) }}> Follow</button>
+                            <button
+                                disabled={props.followingInProgress.find(item => item === u.id) ? 'disabled' : null }
+                                onClick={() => {
+                                    props.toggleFollowUserUI(u.id, u.followed)
+                                }}>
+                                {u.followed ? 'Unfollow' : 'Follow'} {u.id}
+                            </button>
                         }
                     </div>
                     <div className={s.info}>

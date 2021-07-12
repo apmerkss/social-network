@@ -2,22 +2,23 @@ import {connect} from "react-redux";
 import {
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingProgress,
     toggleFollowUser,
     toggleIsFetching
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
+import {getUsers, toggleFollowUserAPI} from "../../api/api";
+import usersAPI from "../../api/usersApi";
 
 class UsersContainer extends React.Component {
     componentDidMount(props) {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(responce => {
-            this.props.setUsers(responce.data.items);
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
             this.props.toggleIsFetching(false);
-            this.props.setTotalUsersCount(responce.data.totalCount);
+            this.props.setTotalUsersCount(data.totalCount);
         });
     }
 
@@ -26,36 +27,19 @@ class UsersContainer extends React.Component {
         this.props.setUsers([]);
         this.props.setCurrentPage(pageNumber);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(responce => {
-            this.props.setUsers(responce.data.items);
+        getUsers(pageNumber, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
             this.props.toggleIsFetching(false);
         });
     }
 
-    followUser = (userId) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null,{
-            withCredentials: true,
-            headers: {
-               'API-KEY': '6f7f3ecd-ed5e-4ed6-a0ce-111fd29fbd86'
-                //'API-KEY': '904c7076-c6df-469e-bfc4-20723289ebf0'
-            }
-        }).then(responce => {
-            if (responce.data.resultCode === 0) {
-                this.props.toggleFollowUser(userId);
-            }
-        });
-    }
+    toggleFollowUserUI = (userId, isFollow) => {
+        this.props.toggleFollowingProgress(userId, true);
 
-    unFollowUser = (userId) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-            withCredentials: true,
-            headers: {
-                 'API-KEY': '6f7f3ecd-ed5e-4ed6-a0ce-111fd29fbd86'
-                // 'API-KEY': '904c7076-c6df-469e-bfc4-20723289ebf0'
-            }
-        }).then(responce => {
-            if (responce.data.resultCode === 0) {
+        toggleFollowUserAPI(userId, isFollow).then(data => {
+            if (data.resultCode === 0) {
                 this.props.toggleFollowUser(userId);
+                this.props.toggleFollowingProgress(userId, false);
             }
         });
     }
@@ -66,11 +50,11 @@ class UsersContainer extends React.Component {
                     <Users
                         totalUsersCount={this.props.totalUsersCount}
                         onPageChanged={this.onPageChanged}
-                        unFollowUser={this.unFollowUser}
-                        followUser={this.followUser}
+                        toggleFollowUserUI={this.toggleFollowUserUI}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
                         users={this.props.users}
+                        followingInProgress={this.props.followingInProgress}
                     />
                 </>
     }
@@ -82,8 +66,9 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
-export default connect(mapStateToProps, {toggleFollowUser, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching })(UsersContainer);
+export default connect(mapStateToProps, {toggleFollowUser, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgress})(UsersContainer);
