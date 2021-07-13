@@ -1,47 +1,23 @@
 import {connect} from "react-redux";
 import {
+    getUsers,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
-    toggleFollowUser,
-    toggleIsFetching
+    toggleFollowUser
 } from "../../redux/users-reducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import {getUsers, toggleFollowUserAPI} from "../../api/api";
-import usersAPI from "../../api/usersApi";
+import {compose} from "redux";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount(props) {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items);
-            this.props.toggleIsFetching(false);
-            this.props.setTotalUsersCount(data.totalCount);
-        });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.toggleIsFetching(true);
-        this.props.setUsers([]);
-        this.props.setCurrentPage(pageNumber);
-
-        getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items);
-            this.props.toggleIsFetching(false);
-        });
-    }
-
-    toggleFollowUserUI = (userId, isFollow) => {
-        this.props.toggleFollowingProgress(userId, true);
-
-        toggleFollowUserAPI(userId, isFollow).then(data => {
-            if (data.resultCode === 0) {
-                this.props.toggleFollowUser(userId);
-                this.props.toggleFollowingProgress(userId, false);
-            }
-        });
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -50,7 +26,7 @@ class UsersContainer extends React.Component {
                     <Users
                         totalUsersCount={this.props.totalUsersCount}
                         onPageChanged={this.onPageChanged}
-                        toggleFollowUserUI={this.toggleFollowUserUI}
+                        toggleFollowUser={this.props.toggleFollowUser}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
                         users={this.props.users}
@@ -71,4 +47,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {toggleFollowUser, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgress})(UsersContainer);
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {setCurrentPage, setTotalUsersCount, getUsers, toggleFollowUser})
+)(UsersContainer);

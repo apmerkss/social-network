@@ -29,13 +29,15 @@ const Users = (props) => {
 
                 <div key={u.id} className={s.user}>
                     <div>
-
+                        <NavLink to={`profile/${u.id}`}>
+                            <img className={s.ava} src={u.photos.small ? u.photos.small : userPhoto} alt=""/>
+                        </NavLink>
                         <br/>
                         {
                             <button
                                 disabled={props.followingInProgress.find(item => item === u.id) ? 'disabled' : null }
                                 onClick={() => {
-                                    props.toggleFollowUserUI(u.id, u.followed)
+                                    props.toggleFollowUser(u.id, u.followed)
                                 }}>
                                 {u.followed ? 'Unfollow' : 'Follow'} {u.id}
                             </button>

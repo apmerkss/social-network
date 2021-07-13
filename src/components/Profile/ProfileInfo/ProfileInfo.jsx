@@ -9,7 +9,7 @@ const ProfileInfo = (props) => {
     }
     return (
             <div>
-                <img className={s.banner} src="https://source.unsplash.com/DLwUVlzrP0Q/1600x250" alt=""/>
+                <img width="967" height="157" className={s.banner} src="https://source.unsplash.com/DLwUVlzrP0Q/1600x250" alt=""/>
                 <div className={s.wrapper}>
                     <img className={s.avatar} src={props.profileInfo.photos.small ? props.profileInfo.photos.small : userPhoto } alt="avatar" width='75' height="75"/>
                     <div className={s.info}>

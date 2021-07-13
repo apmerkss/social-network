@@ -5,8 +5,8 @@ import React from "react";
 
 const Dialogs = (props) => {
 
-    let dialogsElement = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> );
-    let messagesElement = props.dialogsPage.messages.map(m => <Message messages={m} /> );
+    let dialogsElement = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
+    let messagesElement = props.dialogsPage.messages.map(m => <Message messages={m}/>);
 
     let newPostElement = React.createRef();
 
@@ -32,7 +32,8 @@ const Dialogs = (props) => {
                         {messagesElement}
                     </ul>
                     <div className={s.form}>
-                        <textarea ref={newPostElement} className={s.field}  onChange={onMessageChange} value={props.newMessageText}/>
+                        <textarea ref={newPostElement} className={s.field} onChange={onMessageChange}
+                                  value={props.newMessageText}/>
                         <button onClick={onSubmitMessage} className={s.button}>Submit</button>
                     </div>
                 </div>

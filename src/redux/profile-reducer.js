@@ -1,3 +1,5 @@
+import {authAPI} from "../api/api";
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const SET_PROFILE_INFO = 'SET_PROFILE_INFO';
@@ -49,17 +51,22 @@ const profileReducer = (state = initialState, action) => {
 };
 
 export const addPostActionCreator = () => ({type: ADD_POST});
-
 export const updateNewPostActionCreator = (text) => (
     {
         type: UPDATE_NEW_POST_TEXT,
         newText: text
     }
 );
-
-
-
 export const setProfileInfo = (profileInfo) => ({type: SET_PROFILE_INFO, profileInfo});
+
+export const getUserProfile = (userId) => {
+
+    return (dispatch) => {
+        authAPI.getUserProfile(userId).then(response => {
+            dispatch(setProfileInfo(response));
+        });
+    }
+}
 
 
 export default profileReducer;
