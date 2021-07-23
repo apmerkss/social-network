@@ -1,9 +1,9 @@
 import s from './ProfileInfo.module.css'
 import Preloader from "../../common/preloader/Preloader";
 import userPhoto from "../../../assets/images/man.png";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
-
     if (!props.profileInfo) {
         return  <Preloader/>
     }
@@ -13,8 +13,12 @@ const ProfileInfo = (props) => {
                 <div className={s.wrapper}>
                     <img className={s.avatar} src={props.profileInfo.photos.small ? props.profileInfo.photos.small : userPhoto } alt="avatar" width='75' height="75"/>
                     <div className={s.info}>
+
+                        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                        <hr/>
                         <h1>{props.profileInfo.fullName}</h1>
                         {props.profileInfo.aboutMe && props.profileInfo.aboutMe }
+
                         DOB: 16.09.1992 <br/>
                         City: Vinnytsia <br/>
                         Position: Frontend-Developer <br/>

@@ -1,5 +1,5 @@
 import {authAPI} from "../api/api";
-import {getUserProfile} from "./profile-reducer";
+import {getUserProfile, getUserStatus} from "./profile-reducer";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -40,12 +40,12 @@ export const getCurrentUserProfile = () => {
     return (dispatch) => {
         authAPI.getCurrentUserProfile().then(response => {
 
-            debugger
             let {id, email, login} = response.data;
             if (response.resultCode === 0) {
                 dispatch(setUserAuthData(id, email, login));
             }
             dispatch(getUserProfile(id));
+            dispatch(getUserStatus(id));
         });
     }
 }

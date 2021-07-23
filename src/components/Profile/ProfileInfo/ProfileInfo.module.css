@@ -16,3 +16,7 @@
 .info {
     display: inline-block;
 }
+
+.status {
+    color: #fff;
+}
