@@ -1,7 +1,5 @@
 import {authAPI, profileAPI} from "../api/api";
-import {setUserAuthData} from "./auth-reducer";
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const SET_PROFILE_INFO = 'SET_PROFILE_INFO';
 const SET_STATUS = 'SET_STATUS';
@@ -24,20 +22,14 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
 
             return {
                 ...state,
+                posts: [...state.posts, newPost],
                 newPost: ''
-            };
-        }
-
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
             };
         }
 
@@ -60,13 +52,8 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updateNewPostActionCreator = (text) => (
-    {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text
-    }
-);
+export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
+
 export const setProfileInfo = (profileInfo) => ({type: SET_PROFILE_INFO, profileInfo});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
@@ -83,7 +70,6 @@ export const getUserStatus = (userId) => {
 
     return (dispatch) => {
         profileAPI.getUserStatus(userId).then(response => {
-
             dispatch(setStatus(response));
         });
     }

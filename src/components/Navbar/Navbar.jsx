@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import Friend from "./Friend/Friend";
 
 const Navbar = (props) => {
-    let links = props.sidebar.links.map(item => <li><NavLink to={item.link}  activeClassName={s.activeLink} className={s.link}>{item.text}</NavLink></li>);
+    let links = props.sidebar.links.map(item => <li key={item.id}><NavLink to={item.link} activeClassName={s.activeLink} className={s.link}>{item.text}</NavLink></li>);
 
     return (
         <aside className={s.nav}>

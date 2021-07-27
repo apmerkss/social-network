@@ -49,10 +49,22 @@ export const authAPI = {
         });
     },
 
-    getCurrentUserProfile: () => {
-        return instance.get('/auth/me').then(response => {
-            return response.data
-        });
-    }
+    me: () => {
+        return instance.get('/auth/me');
+    },
+
+    login: (email, password, rememberMe = false) => {
+        return instance.post('auth/login', {email, password, rememberMe});
+    },
+
+    logout: () => {
+        return instance.delete('auth/login');
+    },
+
 }
 
+export const securityAPI = {
+    captcha: () => {
+        return instance.get('/security/get-captcha-url');
+    }
+}

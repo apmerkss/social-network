@@ -14,8 +14,8 @@
     text-decoration: underline;
 }
 
-.activeLink {
-    color: #000;
+a.activeLink {
+    color: #ff3d3d;
 }
 
 .menu {
