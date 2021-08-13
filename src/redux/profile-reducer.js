@@ -58,16 +58,15 @@ export const setProfileInfo = (profileInfo) => ({type: SET_PROFILE_INFO, profile
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
 export const getUserProfile = (userId) => {
-
     return (dispatch) => {
         authAPI.getUserProfile(userId).then(response => {
             dispatch(setProfileInfo(response));
+            dispatch(getUserStatus(userId));
         });
     }
 }
 
 export const getUserStatus = (userId) => {
-
     return (dispatch) => {
         profileAPI.getUserStatus(userId).then(response => {
             dispatch(setStatus(response));

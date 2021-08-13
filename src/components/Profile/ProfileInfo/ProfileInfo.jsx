@@ -7,6 +7,7 @@ const ProfileInfo = (props) => {
     if (!props.profileInfo) {
         return  <Preloader/>
     }
+
     return (
             <div>
                 <img width="967" height="157" className={s.banner} src="https://source.unsplash.com/DLwUVlzrP0Q/1600x250" alt=""/>
@@ -19,9 +20,7 @@ const ProfileInfo = (props) => {
                         <h1>{props.profileInfo.fullName}</h1>
                         {props.profileInfo.aboutMe && props.profileInfo.aboutMe }
 
-                        DOB: 16.09.1992 <br/>
-                        City: Vinnytsia <br/>
-                        Position: Frontend-Developer <br/>
+                      
 
                     </div>
                 </div>
